@@ -4,13 +4,28 @@
     {
       "src": "api/index.go",
       "use": "@vercel/go"
+    },
+    {
+      "src": "web/build/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "api/index.go"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "web/build/$1",
+      "continue": true
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "web/build/index.html"
     }
   ]
 }
-
